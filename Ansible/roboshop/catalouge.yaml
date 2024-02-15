@@ -3,17 +3,24 @@
   hosts: catalouge 
   tasks:
   - name: Disable, enable 18 and install nodejs PLAY
-    ansible.builtin.shell: dnf module disable nodejs -y ;dnf module enable nodejs:18 -y ;dnf install nodejs -y 
+    ansible.builtin.shell: dnf module disable nodejs -y ;dnf module enable nodejs:18 -y 
+
+  - name: Installing nodejs PlayBook
+    ansible.builtin.package: 
+      name: nodejs
+      state: Present
+
   - name: Getting user details PLAY
     ansible.builtin.shell: id roboshop
     register: userdetails
     ignore_errors: True
-    
+
   - name: Printing error 
     ansible.builtin.debug:
       msg: "user not found so creating"
+      
   - name: Add the user 'roboshop' PLAY
     ansible.builtin.user:
-      name: roboshop
+      name: "roboshop"
       comment: John Doe
     when: userdetails.rc != 0
