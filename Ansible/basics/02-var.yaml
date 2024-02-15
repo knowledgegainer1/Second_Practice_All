@@ -1,12 +1,18 @@
 - name: Variable PLAY
   hosts: localhost
-  vars:
-    surname: "gottam"
-    lastname: "Reddy"
+  vars_prompt:
+  - name: USERNAME
+    prompt: Enter your USERNAME
+    private: false
+  - name: PASSWORD
+    prompt: Enter your password
+    private: true
+  
   tasks:
   - name: Task 1
     vars:
       surname: "GOTTAM"
       lastname: "REDDY"
     ansible.builtin.debug:
-      msg: "my name is {{surname}} {{lastname}}"
+      msg: "my name is {{surname}} {{lastname}} // {{USERNAME}}  {{PASSWORD}}"
+      
