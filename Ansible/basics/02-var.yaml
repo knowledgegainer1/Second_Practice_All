@@ -5,5 +5,8 @@
     lastname: "Reddy"
   tasks:
   - name: Task 1
+    vars:
+      surname: "GOTTAM"
+      lastname: "REDDY"
     ansible.builtin.debug:
       msg: "my name is {{surname}} {{lastname}}"
