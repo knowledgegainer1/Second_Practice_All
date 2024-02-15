@@ -10,17 +10,23 @@
       name: nodejs
       state: present
 
-  # - name: Getting user details PLAY
-  #   ansible.builtin.shell: id roboshop
-  #   register: userdetails
-  #   ignore_errors: True
+  - name: Getting user details PLAY
+    ansible.builtin.shell: id roboshop
+    register: userdetails
+    ignore_errors: True
 
-  # - name: Printing error 
-  #   ansible.builtin.debug:
-  #     msg: "user not found so creating"
+  - name: Printing error 
+    ansible.builtin.debug:
+      msg: "user not found so creating"
 
   - name: Add the user 'roboshop' PLAY
     ansible.builtin.user:
       name: "roboshop"
       comment: John Doe
-    # when: userdetails.rc != 0
+    when: userdetails.rc != 0
+
+  - name: Create a directory if it does not exist
+    ansible.builtin.file:
+      path: /app
+      state: directory
+      mode: '0777'
