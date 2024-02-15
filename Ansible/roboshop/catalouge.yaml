@@ -30,3 +30,17 @@
       path: /app
       state: directory
       mode: '0777'
+  - name: Download foo.conf
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+      dest: /tmp/catalogue.zip
+  
+  - name: Unarchive a file that is already on the remote machine
+    ansible.builtin.unarchive:
+      src: /tmp/catalogue.zip
+      dest: /app
+      remote_src: yes
+
+  - name: npm install
+    ansible.builtin.shell: npm install
+      
