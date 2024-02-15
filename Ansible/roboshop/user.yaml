@@ -1,6 +1,6 @@
-- name: Cataloiuge PlayBook
+- name: User PlayBook
   become: yes
-  hosts: catalouge 
+  hosts: user 
   tasks:
   - name: Disable, enable 18 and install nodejs PLAY
     ansible.builtin.shell: dnf module disable nodejs -y ;dnf module enable nodejs:18 -y 
@@ -32,12 +32,12 @@
       mode: '0777'
   - name: Download foo.conf
     ansible.builtin.get_url:
-      url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
-      dest: /tmp/catalogue.zip
+      url: https://roboshop-builds.s3.amazonaws.com/user.zip
+      dest: /tmp/user.zip
   
   - name: Unarchive a file that is already on the remote machine
     ansible.builtin.unarchive:
-      src: /tmp/catalogue.zip
+      src: /tmp/user.zip
       dest: /app
       remote_src: yes
 
@@ -46,10 +46,10 @@
     args:
       chdir: /app
 
-  - name: Copy file  cataloige
+  - name: Copy file  user side
     ansible.builtin.copy:
-      src: catalogue.service
-      dest: /etc/systemd/system/catalogue.service
+      src: user.service
+      dest: /etc/systemd/system/user.service
   
   - name: Make sure a service unit is running
     ansible.builtin.systemd_service:
@@ -64,21 +64,21 @@
     ansible.builtin.package: 
       name:  mongodb-org-shell
       state: present
-  - name: get the categories count
-    ansible.builtin.command:  mongo --host 172.31.83.132 --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
-    register: product_count
+  - name: get the users count
+    ansible.builtin.command:  mongo --host 172.31.83.132 --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
+    register: user_count
 
   # - name: print the count
   #   ansible.builtin.debug:
   #     msg: "product count: {{product_count}}"
 
-  - name: load catalogue data
-    ansible.builtin.command: mongo --host 172.31.83.132 < /app/schema/catalogue.js
+  - name: load user data
+    ansible.builtin.command: mongo --host 172.31.83.132 < /app/schema//user.js
     when: product_count.stdout == "0" # keep double quotes
 
    
   - name: Start service httpd, if not started
     ansible.builtin.service:
-      name: catalogue
+      name: user
       state: restarted
       enabled: yes
