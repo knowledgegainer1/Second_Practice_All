@@ -73,7 +73,7 @@
   #     msg: "product count: {{product_count}}"
 
   - name: load user data
-    ansible.builtin.command: mongo --host 172.31.83.132 < /app/schema//user.js
+    ansible.builtin.command: mongo --host 172.31.83.132 < /app/schema/user.js
     when: product_count.stdout == "0" # keep double quotes
 
    
