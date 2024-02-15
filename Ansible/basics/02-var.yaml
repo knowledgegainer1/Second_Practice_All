@@ -30,6 +30,6 @@
   tasks:
   - name: Task 1
     ansible.builtin.debug:
-      msg: "skills ans experice is  {{skills}} {{Experience}} // {{USERNAME}}  {{PASSWORD}}"
+      msg: "skills ans experice is  {{skills}} {{Experience}}"
       
       
