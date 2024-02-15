@@ -8,7 +8,7 @@
   - name: Installing nodejs PlayBook
     ansible.builtin.package: 
       name: nodejs
-      state: Present
+      state: present
 
   # - name: Getting user details PLAY
   #   ansible.builtin.shell: id roboshop
@@ -18,7 +18,7 @@
   # - name: Printing error 
   #   ansible.builtin.debug:
   #     msg: "user not found so creating"
-  
+
   - name: Add the user 'roboshop' PLAY
     ansible.builtin.user:
       name: "roboshop"
