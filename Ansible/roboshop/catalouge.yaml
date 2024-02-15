@@ -10,14 +10,14 @@
       name: nodejs
       state: present
 
-  - name: Getting user details PLAY
-    ansible.builtin.shell: id roboshop
-    register: userdetails
-    ignore_errors: True
+  # - name: Getting user details PLAY
+  #   ansible.builtin.shell: id roboshop
+  #   register: userdetails
+  #   ignore_errors: True
 
-  - name: Printing error 
-    ansible.builtin.debug:
-      msg: "user not found so creating"
+  # - name: Printing error 
+  #   ansible.builtin.debug:
+  #     msg: "user not found so creating"
 
   - name: Add the user 'roboshop' PLAY
     ansible.builtin.user:
