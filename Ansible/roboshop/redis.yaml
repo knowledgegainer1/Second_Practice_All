@@ -1,0 +1,28 @@
+- name: REDIS Installing PLAYBOOK
+  become: yes
+  hosts: redis
+  tasks:
+    - name: Install redis repo
+      ansible.builtin.dnf:
+        name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+        state: present
+
+    - name: Enable Redis 6.2 from package streams.
+      ansible.builtin.command: dnf module enable redis:remi-6.2 -y
+    
+    - name: Install redis 
+      ansible.builtin.dnf:
+        name: redis
+        state: present
+
+    - name: Update MongoDB listen address in mongod.conf
+      ansible.builtin.replace:
+        path: /etc/redis.conf
+        regexp: '127.0.0.1'
+        replace: '0.0.0.0'
+
+    - name: Start service httpd, if not started
+      ansible.builtin.service:
+        name: redis
+        state: started
+        enabled: yes
