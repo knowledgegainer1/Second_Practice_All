@@ -1,0 +1,9 @@
+- name: Variable PLAY
+  hosts: localhost
+  vars:
+    surname: "gottam"
+    lastname: "Reddy"
+  tasks:
+  - name: Task 1
+    ansible.builtin.debug:
+      msg: "my name is {{surname}} {{lastname}}"
