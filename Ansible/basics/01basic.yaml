@@ -1,6 +1,6 @@
 - name: PLAY 1
   become: yes
-  host: localhost
+  hosts: localhost
   tasks:
   - name: Output execte
     ansible.builtin.debug:
@@ -8,7 +8,7 @@
 
 - name: PLAY 2
   become: yes
-  host: localhost
+  hosts: localhost
   tasks:
   - name: Output execte 2
     ansible.builtin.debug:
