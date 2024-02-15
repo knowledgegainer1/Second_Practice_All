@@ -15,4 +15,21 @@
       lastname: "REDDY"
     ansible.builtin.debug:
       msg: "my name is {{surname}} {{lastname}} // {{USERNAME}}  {{PASSWORD}}"
+
+- name: Datatypes
+  hosts: localhost
+  vars:
+    age: 20
+    sex: "male"
+    skills:
+    - DevOps
+    - AWS
+    Experience:
+      DevOps: 3
+      AWS: 4
+  tasks:
+  - name: Task 1
+    ansible.builtin.debug:
+      msg: "skills ans experice is  {{skills}} {{Experience}} // {{USERNAME}}  {{PASSWORD}}"
+      
       
