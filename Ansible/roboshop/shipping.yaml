@@ -2,7 +2,7 @@
   become: yes
   vars:
     mysql_password: RoboShop@1
-  hosts: cart
+  hosts: shipping
   tasks:
     - name: Installing maven PlayBook
       ansible.builtin.package:
