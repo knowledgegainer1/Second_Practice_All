@@ -1,0 +1,27 @@
+- name: Rabbitmq Installing PLAYBOOK
+  become: yes
+  hosts: rabbitmq
+  vars:
+    robopass: roboshop123
+  tasks:
+    - name: Enable rabbitmq  6.2 from package streams.
+      ansible.builtin.shell: curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
+
+    - name: Enable rabbitmq  6.2 from package streams.
+      ansible.builtin.shell: curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
+
+    - name: Install redis repo
+      ansible.builtin.dnf:
+        name: rabbitmq-serve
+        state: present
+
+    - name: Start service httpd, if not started
+      ansible.builtin.service:
+        name: rabbitmq-server
+        state: started
+        enabled: yes
+    - name: create user password for user
+      ansible.builtin.shell: rabbitmqctl add_user roboshop {{robopass}}
+
+    - name: setting permissions
+      ansible.builtin.shell: rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"

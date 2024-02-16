@@ -65,7 +65,7 @@
       name:  mongodb-org-shell
       state: present
   - name: get the users count
-    ansible.builtin.command:  mongo --host 172.31.83.132 --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
+    ansible.builtin.command:  mongo --host 172.31.43.84 --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
     register: user_count
 
   # - name: print the count
@@ -73,7 +73,7 @@
   #     msg: "product count: {{product_count}}"
 
   - name: load user data
-    ansible.builtin.command: mongo --host 172.31.83.132 < /app/schema/user.js
+    ansible.builtin.command: mongo --host 172.31.43.84 < /app/schema/user.js
     when: product_count.stdout == "0" # keep double quotes
 
    

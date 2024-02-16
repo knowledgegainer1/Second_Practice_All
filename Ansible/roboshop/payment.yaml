@@ -1,0 +1,63 @@
+- name: Payment PlayBook
+  become: yes
+  hosts: payment
+  tasks:
+    - name: Installing python PlayBook
+      ansible.builtin.package:
+        name: "{{item}}"
+        state: present
+      loop:
+        - python36
+        - gcc
+        - python3-devel
+
+    - name: Getting user details PLAY
+      ansible.builtin.shell: id roboshop
+      register: userdetails
+      ignore_errors: True
+
+    - name: Printing error
+      ansible.builtin.debug:
+        msg: "user not found so creating"
+
+    - name: Add the user 'roboshop' PLAY
+      ansible.builtin.user:
+        name: "roboshop"
+        comment: John Doe
+      when: userdetails.rc != 0
+
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /app
+        state: directory
+        mode: "0777"
+    - name: Download foo.conf
+      ansible.builtin.get_url:
+        url: https://roboshop-builds.s3.amazonaws.com/payment.zip
+        dest: /tmp/payment.zip
+
+    - name: Unarchive a file that is already on the remote machine
+      ansible.builtin.unarchive:
+        src: /tmp/payment.zip
+        dest: /app
+        remote_src: yes
+
+    - name: pip3.6 install -r requirements.txt
+      ansible.builtin.command: pip3.6 install -r requirements.txt
+      args:
+        chdir: /app
+
+    - name: Copy file  cataloige
+      ansible.builtin.copy:
+        src: payment.service
+        dest: /etc/systemd/system/payment.service
+
+    - name: Make sure a service unit is running
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+
+    - name: Start service httpd, if not started
+      ansible.builtin.service:
+        name: payment
+        state: restarted
+        enabled: yes

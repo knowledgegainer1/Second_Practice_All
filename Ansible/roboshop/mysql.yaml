@@ -1,0 +1,28 @@
+- name: MYSQL Installing PLAYBOOK
+  become: yes
+  vars:
+   pass: RoboShop@1
+  hosts: mysql
+  tasks:
+    - name: Disable, 8 
+      ansible.builtin.shell: dnf module disable mysql -y ;
+    
+    - name: Copy file  user side
+      ansible.builtin.copy:
+        src: mysql.repo
+        dest: /etc/yum.repos.d/mysql.repo
+
+    - name: Install mysql application
+      ansible.builtin.dnf:
+        name: mysql-community-server
+        state: present
+
+    
+    - name: Start service httpd, if not started
+      ansible.builtin.service:
+        name: mysqld
+        state: started
+        enabled: yes
+
+    - name: setup table
+      ansible.builtin.command: mysql_secure_installation --set-root-pass {{pass}}
