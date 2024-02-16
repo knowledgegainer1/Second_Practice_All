@@ -12,7 +12,7 @@
 
     - name: Install redis repo
       ansible.builtin.dnf:
-        name: rabbitmq-serve
+        name: rabbitmq-server
         state: present
 
     - name: Start service httpd, if not started
