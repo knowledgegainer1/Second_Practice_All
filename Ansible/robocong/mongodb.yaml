@@ -1,5 +1,5 @@
 - name: MongoDB cfg
-  hosts: 172.31.41.107
+  hosts:  172.31.41.107
   become: yes
   tasks:
     - name: Copy file with owner and permissions
