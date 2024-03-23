@@ -1,6 +1,6 @@
 - name: MongoDB cfg
-  hosts: mongodb 
   become: yes
+  hosts: mongodb 
   tasks:
     - name: Copy file with owner and permissions
       ansible.builtin.copy:
@@ -15,7 +15,6 @@
         name: mongod
         enabled: yes
         state: started
-        
 
     - name: Replace text
       replace:
