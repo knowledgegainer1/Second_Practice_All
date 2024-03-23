@@ -1,6 +1,6 @@
 - name: MongoDB cfg
+  hosts: 172.31.33.59 
   become: yes
-  hosts: mongodb 
   tasks:
     - name: Copy file with owner and permissions
       ansible.builtin.copy:
