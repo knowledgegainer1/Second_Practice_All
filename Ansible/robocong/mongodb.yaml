@@ -1,0 +1,30 @@
+- name: MongoDB cfg
+  become: yes
+  hosts: mongodb 
+  tasks:
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+       src: mongo.repo
+       dest: /etc/yum.repos.d/mongo.repo
+
+    - name: Installing mongodb
+      ansible.builtin.command: dnf install mongodb-org -y    
+      
+    - name: Start service mongo, if not started
+      ansible.builtin.service:
+        name: mongod
+        enabled: yes
+        state: started
+        
+
+    - name: Replace text
+      replace:
+        path: /etc/mongod.conf
+        regexp: '127.0.0.1'
+        replace: '0.0.0.0'
+
+    - name: Reload service momgo, in all cases
+      ansible.builtin.service:
+        name: mongod
+        state: restarted
+          
