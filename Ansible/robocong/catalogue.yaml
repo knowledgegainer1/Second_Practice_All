@@ -10,3 +10,8 @@
      ansible.builtin.service:
         name: nodejs:18
         enabled: yes
+   - name: Install ntpdate
+     ansible.builtin.package:
+        name: nodejs
+        state: present
+
