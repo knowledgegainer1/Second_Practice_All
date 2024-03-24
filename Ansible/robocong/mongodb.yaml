@@ -7,9 +7,12 @@
        src: mongo.repo
        dest: /etc/yum.repos.d/mongo.repo
 
-    - name: Installing mongodb
-      ansible.builtin.command: dnf install mongodb-org -y    
-      
+    # - name: Installing mongodb
+    #   ansible.builtin.command: dnf install mongodb-org -y 
+    - name: Install ntpdate
+      ansible.builtin.package:
+        name: mongodb-org
+        state: present
     - name: Start service mongo, if not started
       ansible.builtin.service:
         name: mongod
