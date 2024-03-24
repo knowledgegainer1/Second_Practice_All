@@ -1,0 +1,12 @@
+- name: Installing catalogue
+  hosts: catalogue
+  become: yes
+  tasks:
+   - name: Enable service httpd, and not touch the state
+     ansible.builtin.service:
+        name: nodejs
+        enabled: no
+   - name: Enable service httpd, and not touch the state
+     ansible.builtin.service:
+        name: nodejs:18
+        enabled: yes
