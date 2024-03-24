@@ -1,5 +1,5 @@
 - name: Installing catalogue
-  hosts: catalogue
+  hosts: catalouge
   become: yes
   tasks:
    - name: Enable service httpd, and not touch the state
