@@ -11,6 +11,7 @@
    - name: Installing mongodb
      ansible.builtin.command: id roboshop
      register: output
+     ignore_errors: true
    - name: printing output
      ansible.builtin.debug:
       msg: "op is {{output}}"
