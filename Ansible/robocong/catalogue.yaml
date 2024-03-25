@@ -9,6 +9,10 @@
         name: nodejs
         state: present
    - name: Installing mongodb
-     ansible.builtin.command: id -u
+     ansible.builtin.command: id roboshop
+     register: output
+   - name: printing output
+     ansible.builtin.debug:
+      msg: "op is {{output}}"
    
 
