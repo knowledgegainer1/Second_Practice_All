@@ -15,10 +15,10 @@
    - name: printing output
      ansible.builtin.debug:
       msg: "op is {{output}}"
-   - name: Add the user 'johnd' with a specific uid and a primary group of 'admin'
+   - name: Add the user 'roboshop' with a specific uid and a primary group of 'admin'
      ansible.builtin.user:
       name: roboshop
-     when: output.rc!=0
+     when: output.rc != 0
    - name: printing output
      ansible.builtin.debug:
       msg: "roboshop created"  
