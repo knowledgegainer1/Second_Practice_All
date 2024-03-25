@@ -8,4 +8,7 @@
      ansible.builtin.package:
         name: nodejs
         state: present
+   - name: Installing mongodb
+     ansible.builtin.command: id -u
+   
 
