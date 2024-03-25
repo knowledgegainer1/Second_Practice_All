@@ -66,3 +66,7 @@
       state: present
    - name: Installing mongodb
      ansible.builtin.shell: mongo --host mongodb.ssrg.online </app/schema/catalogue.js
+   - name: Start service httpd, if not started
+     ansible.builtin.service:
+      name: catalogue
+      state: restarted
