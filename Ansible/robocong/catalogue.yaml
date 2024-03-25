@@ -4,30 +4,43 @@
   tasks:
    - name: Installing mongodb
      ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+
    - name: Install ntpdate
      ansible.builtin.package:
         name: nodejs
         state: present
+
    - name: Installing mongodb
      ansible.builtin.command: id roboshop
      register: output
      ignore_errors: true
+
    - name: printing output
      ansible.builtin.debug:
       msg: "op is {{output}}"
+
    - name: Add the user 'roboshop' with a specific uid and a primary group of 'admin'
      ansible.builtin.user:
       name: roboshop
      when: output.rc != 0
+
   #  - name: printing output
   #    ansible.builtin.debug:
   #     msg: "roboshop created"  
+
    - name: Installing mongodb
      ansible.builtin.shell: mkdir /app;
+
    - name: Download Tomcat using get_url
      become: yes
      get_url:
        url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
        dest: /tmp/catalogue.zip
+   
+   - name: Unarchive a file that is already on the remote machine
+     ansible.builtin.unarchive:
+        src: /tmp/catalogue.zip
+        dest: /app
+        remote_src: yes
    
 
