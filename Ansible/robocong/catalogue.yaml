@@ -28,9 +28,6 @@
   #    ansible.builtin.debug:
   #     msg: "roboshop created"  
 
-   - name: Installing mongodb
-     ansible.builtin.shell: mkdir /app;
-
    - name: Download Tomcat using get_url
      become: yes
      get_url:
