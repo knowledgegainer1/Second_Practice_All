@@ -19,9 +19,15 @@
      ansible.builtin.user:
       name: roboshop
      when: output.rc != 0
-   - name: printing output
-     ansible.builtin.debug:
-      msg: "roboshop created"  
-      
+  #  - name: printing output
+  #    ansible.builtin.debug:
+  #     msg: "roboshop created"  
+   - name: Installing mongodb
+     ansible.builtin.shell: mkdir /app;
+   - name: Download Tomcat using get_url
+     become: yes
+     get_url:
+       url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+       dest: /tmp/catalogue.zip
    
 
